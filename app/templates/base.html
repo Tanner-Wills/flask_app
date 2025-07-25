@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Database Management System</h1>
+            <p class="subtitle">Manage companies and data entries</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('companies')">Companies</button>
+            <button class="tab" onclick="showTab('data-entries')">Data Entries</button>
+            <button class="tab" onclick="showTab('statistics')">Statistics</button>
+        </div>
+
+        <main>
+            {% include "tabs/companies_tab.html" %}
+            {% include "tabs/data_entries_tab.html" %}
+            {% include "tabs/statistics_tab.html" %}
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+
+
+            <!-- <main id="tab-content">
+                Tab content will be dynamically injected here
+                <p>Select a tab to view content.</p>
+            </main> -->

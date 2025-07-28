@@ -81,9 +81,16 @@ function hideLoading(tabName) {
 // Utility Functions
 function showMessage(elementId, message, type = 'success') {
     const messageEl = document.getElementById(elementId);
+    if (!messageEl) {
+        console.warn(`Element with ID "${elementId}" not found.`);
+        return;
+    }
     messageEl.innerHTML = `<div class="${type}">${message}</div>`;
-    setTimeout(() => messageEl.innerHTML = '', 5000);
+    setTimeout(() => {
+        if (messageEl) messageEl.innerHTML = '';
+    }, 5000);
 }
+
 
 async function apiRequest(endpoint, options = {}) {
     try {
@@ -430,10 +437,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/companies')  // adjust endpoint as needed
+    fetch('/companies')
         .then(response => response.json())
         .then(data => {
             const select = document.getElementById('stats-company');
+            if (!select) {
+                console.warn('Element with ID "stats-company" not found.');
+                return;
+            }
+
             data.forEach(company => {
                 const option = document.createElement('option');
                 option.value = company.id;
@@ -442,3 +454,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 });
+

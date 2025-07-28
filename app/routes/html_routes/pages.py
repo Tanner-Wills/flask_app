@@ -9,16 +9,17 @@ pages_bp = Blueprint('pages', __name__, url_prefix='/pages')
 
 @pages_bp.route('/companies')
 def show_companies():
-    return render_template('pages/companies.html', active_tab='companies')
+    return render_template('pages/companies_tab.html', active_tab='companies')
 
 
 @pages_bp.route('/data-entries')
 def show_data_entries():
-    return render_template('pages/data_entries.html', active_tab='data_entries')
+    return render_template('pages/data_entries_tab.html', active_tab='data_entries')
+
 
 @pages_bp.route('/statistics')
 def show_statistics():
-    return render_template('pages/statistics.html', active_tab='statistics')
+    return render_template('pages/statistics_tab.html', active_tab='statistics')
 
 
 # @pages_bp.route('/load-tab/<tab_name>')

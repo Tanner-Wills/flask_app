@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Management System</title>
+    <title>{% block title %}Database Management System{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -13,16 +13,14 @@
             <p class="subtitle">Manage companies and data entries</p>
         </header>
 
-        <div class="tabs">
-            <button class="tab active" onclick="showTab('companies')">Companies</button>
-            <button class="tab" onclick="showTab('data-entries')">Data Entries</button>
-            <button class="tab" onclick="showTab('statistics')">Statistics</button>
-        </div>
+        <nav class="tabs">
+            <a href="{{ url_for('pages.show_companies') }}" class="tab {% if active_tab == 'companies' %}active{% endif %}">Companies</a>
+            <a href="{{ url_for('pages.show_data_entries') }}" class="tab {% if active_tab == 'data_entries' %}active{% endif %}">Data Entries</a>
+            <a href="{{ url_for('pages.show_statistics') }}" class="tab {% if active_tab == 'statistics' %}active{% endif %}">Statistics</a>
+        </nav>
 
         <main>
-            {% include "pages/companies_tab.html" %}
-            {% include "pages/data_entries_tab.html" %}
-            {% include "pages/statistics_tab.html" %}
+            {% block content %}{% endblock %}
         </main>
     </div>
 
@@ -30,8 +28,3 @@
 </body>
 </html>
 
-
-            <!-- <main id="tab-content">
-                Tab content will be dynamically injected here
-                <p>Select a tab to view content.</p>
-            </main> -->

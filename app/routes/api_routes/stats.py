@@ -50,3 +50,55 @@ def get_data_set_count():
         'data_set': data_set,
         'count': count
     })
+
+
+@bp.route('', methods=['GET'])  
+def get_all_company_stats():
+    """Get statistics about companies and data entries"""
+    try:
+        # Basic statistics
+        total_companies = Company.query.count()
+        total_entries = DataEntry.query.count()
+        
+        # Company with most entries
+        company_entry_counts = db.session.query(
+            Company.name,
+            func.count(DataEntry.id).label('entry_count')
+        ).join(DataEntry).group_by(Company.id, Company.name).order_by(
+            func.count(DataEntry.id).desc()
+        ).all()
+        
+        # Device type distribution
+        device_type_counts = db.session.query(
+            DataEntry.device_type,
+            func.count(DataEntry.id).label('count')
+        ).group_by(DataEntry.device_type).all()
+        
+        # Data set distribution
+        data_set_counts = db.session.query(
+            DataEntry.data_set,
+            func.count(DataEntry.id).label('count')
+        ).group_by(DataEntry.data_set).all()
+        
+        stats_data = {
+            'total_companies': total_companies,
+            'total_entries': total_entries,
+            'company_entry_counts': [
+                {'company': name, 'entries': count} 
+                for name, count in company_entry_counts
+            ],
+            'device_type_distribution': [
+                {'device_type': device_type or 'Unknown', 'count': count}
+                for device_type, count in device_type_counts
+            ],
+            'data_set_distribution': [
+                {'data_set': data_set or 'Unknown', 'count': count}
+                for data_set, count in data_set_counts
+            ]
+        }
+        
+        return jsonify(stats_data)
+    
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+

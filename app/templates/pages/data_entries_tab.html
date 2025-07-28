@@ -1,5 +1,82 @@
 <!-- Data Entries Tab -->
-<div id="data-entries-tab" class="content hidden">
+<!-- <div id="data-entries-tab" class="content hidden">
+    <h2>Data Entries Management</h2>
+    <div id="data-message"></div>
+ -->
+    <!-- Add Data Entry Form -->
+    <!-- <div class="form-row">
+        <div class="form-group">
+            <label for="entry-company">Company:</label>
+            <select id="entry-company">
+                <option value="">Select a company</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="entry-device-type">Device Type:</label>
+            <input type="text" id="entry-device-type" placeholder="e.g., sensor, camera">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="entry-uid">UID:</label>
+            <input type="text" id="entry-uid" placeholder="Unique identifier">
+        </div>
+        <div class="form-group">
+            <label for="entry-data-type">Data Type:</label>
+            <input type="text" id="entry-data-type" placeholder="e.g., temperature, video">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="entry-data-set">Data Set:</label>
+            <input type="text" id="entry-data-set" placeholder="e.g., production_data">
+        </div>
+        <div class="form-group">
+            <label for="entry-data-going-to">Data Going To:</label>
+            <input type="text" id="entry-data-going-to" placeholder="e.g., analytics_server">
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-primary" onclick="createDataEntry()">Add Data Entry</button>
+        <button class="btn btn-secondary" onclick="loadDataEntries()">Refresh</button>
+    </div>
+ -->
+    <!-- Filters -->
+    <!-- <div class="filters">
+        <div class="filter-group">
+            <label for="filter-company">Filter by Company:</label>
+            <select id="filter-company" onchange="loadDataEntries()">
+                <option value="">All Companies</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="filter-uid">Filter by UID:</label>
+            <input type="text" id="filter-uid" placeholder="Enter UID" onchange="loadDataEntries()">
+        </div>
+        <div class="filter-group">
+            <label for="filter-data-set">Filter by Data Set:</label>
+            <input type="text" id="filter-data-set" placeholder="Enter data set" onchange="loadDataEntries()">
+        </div>
+    </div>
+
+    <div id="data-entries-list">
+        <div class="loading">Loading data entries...</div>
+    </div>
+</div> -->
+
+
+
+
+
+{% extends "base.html" %}
+
+{% block title %}Data Entries | Database Management System{% endblock %}
+
+{% block content %}
+<div id="data-entries-tab" class="content">
     <h2>Data Entries Management</h2>
     <div id="data-message"></div>
 
@@ -66,3 +143,4 @@
         <div class="loading">Loading data entries...</div>
     </div>
 </div>
+{% endblock %}

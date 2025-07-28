@@ -21,7 +21,14 @@ def create_app():
     @app.route('/')
     def index():
         """Serve the frontend HTML"""
-        return render_template('base.html')
+        # Redirect to companies page or render companies page directly
+        return render_template('pages/companies_tab.html', active_tab='companies')
+
+    # Favicon route to avoid 404 errors
+    @app.route('/favicon.ico')
+    def favicon():
+        """Serve favicon or return 204 No Content"""
+        return '', 204
 
     # Error handlers
     @app.errorhandler(404)
@@ -39,6 +46,7 @@ def create_app():
 
 def run_app():
     app = create_app()
+    app.jinja_env.cache = {}
     if not os.path.exists(SQLALCHEMY_DATABASE_PATH):
         create_database(app)
     app.run(debug=True)

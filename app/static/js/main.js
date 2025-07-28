@@ -427,3 +427,18 @@ function renderStats(stats) {
 document.addEventListener('DOMContentLoaded', () => {
     loadCompanies();
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('/companies')  // adjust endpoint as needed
+        .then(response => response.json())
+        .then(data => {
+            const select = document.getElementById('stats-company');
+            data.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company.id;
+                option.textContent = company.name;
+                select.appendChild(option);
+            });
+        });
+});

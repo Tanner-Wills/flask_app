@@ -55,3 +55,21 @@ def get_company(company_id):
     """Get a specific company"""
     company = Company.query.get_or_404(company_id)
     return jsonify(company.to_dict())
+
+
+@bp.route('/<int:company_id>', methods=['DELETE'])
+def delete_company(company_id):
+    """Delete a company and all its data entries"""
+    try:
+        company = Company.query.get_or_404(company_id)
+        
+        # Due to CASCADE, related data entries will be deleted automatically
+        db.session.delete(company)
+        db.session.commit()
+        
+        return jsonify({'message': 'Company deleted successfully'})
+    
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
+

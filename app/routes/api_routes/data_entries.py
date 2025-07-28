@@ -31,13 +31,21 @@ def get_data_entries():
 def create_data_entry():
     data = request.get_json()
 
-    if not data or 'company_id' not in data:
-        return jsonify({'error': 'company_id is required'}), 400
-
+    required_fields = ['company_id', 'uid']
+    for field in required_fields:
+        if not data or field not in data:
+            return jsonify({'error': f'{field} is required'}), 400
+    
+    # Check if company exists
     company = Company.query.get(data['company_id'])
     if not company:
         return jsonify({'error': 'Company not found'}), 404
-
+    
+    # Check if UID already exists
+    existing_entry = DataEntry.query.filter_by(uid=data['uid']).first()
+    if existing_entry:
+        return jsonify({'error': 'UID already exists'}), 400
+    
     data_entry = DataEntry(
         company_id=data['company_id'],
         device_type=data.get('device_type'),
@@ -87,8 +95,13 @@ def update_data_entry(entry_id):
 # DELETE a data entry
 @bp.route('/<int:entry_id>', methods=['DELETE'])
 def delete_data_entry(entry_id):
-    data_entry = DataEntry.query.get_or_404(entry_id)
-    db.session.delete(data_entry)
-    db.session.commit()
-    return jsonify({'message': 'Data entry deleted successfully'})
+    """Delete a data entry"""
+    try:
+        entry = DataEntry.query.get_or_404(entry_id)
+        db.session.delete(entry)
+        db.session.commit()
+        return jsonify({'message': 'Data entry deleted successfully'})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
 

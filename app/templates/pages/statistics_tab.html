@@ -1,5 +1,26 @@
 <!-- Statistics Tab -->
-<div id="statistics-tab" class="content hidden">
+<!-- <div id="statistics-tab" class="content hidden">
+    <h2>Statistics</h2>
+    <div id="stats-message"></div>
+
+    <div class="form-group">
+        <label for="stats-company">Select Company:</label>
+        <select id="stats-company" onchange="loadCompanyStats()">
+            <option value="">Select a company</option>
+        </select>
+    </div>
+
+    <div id="stats-content">
+        <div class="loading">Select a company to view statistics</div>
+    </div>
+</div> -->
+
+{% extends "base.html" %}
+
+{% block title %}Statistics | Database Management System{% endblock %}
+
+{% block content %}
+<div id="statistics-tab" class="content">
     <h2>Statistics</h2>
     <div id="stats-message"></div>
 
@@ -14,12 +35,6 @@
         <div class="loading">Select a company to view statistics</div>
     </div>
 </div>
+{% endblock %}
 
 
-
-<!-- <select id="stats-company" onchange="loadCompanyStats()">
-        <option value="">Select a company</option>
-        {% for company in companies %}
-            <option value="{{ company.id }}">{{ company.name }}</option>
-        {% endfor %}
-    </select> -->

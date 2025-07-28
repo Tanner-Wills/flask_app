@@ -1,6 +1,8 @@
 from flask import request, Blueprint, render_template
-from .companies import get_companies
-from .data_entries import get_data_entry, get_data_entries, get_company_stats
+from app.routes.api_routes.companies import get_companies
+from app.routes.api_routes.data_entries import get_data_entry, get_data_entries
+from app.routes.api_routes.stats import get_company_stats
+
 
 tabs_bp = Blueprint('tabs', __name__)
 

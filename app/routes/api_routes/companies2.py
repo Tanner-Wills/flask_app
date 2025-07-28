@@ -2,7 +2,7 @@
 
 from flask import Flask, jsonify, request, render_template
 from sqlalchemy import func
-from models import Company, DataEntry, db
+from app.models.models import Company, DataEntry, db
 
 # Your existing app setup...
 app = Flask(__name__)

@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from .database import db
+from ..database import db
 
 
 # Models

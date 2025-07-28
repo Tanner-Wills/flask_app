@@ -2,7 +2,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from config import SQLALCHEMY_DATABASE_URI
-from models import Company, DataEntry, Base  # Assuming you have these models set up
+from app.models.models import Company, DataEntry, Base  # Assuming you have these models set up
 
 # Setup SQLAlchemy session
 engine = create_engine(SQLALCHEMY_DATABASE_URI)

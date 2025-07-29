@@ -5,7 +5,13 @@ from .routes.register_routes import register_routes
 from config import SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS, SQLALCHEMY_DATABASE_PATH
 import os
 
+"""
+TODO:
+- Add datatables for data viewing
+- Add ability to drag and drop .csv file and upload data to backend
+- Troubleshoot statistics tab for company drop down not working
 
+"""
 def create_app():
     app = Flask(__name__)
     CORS(app)  # Enable CORS for API endpoints

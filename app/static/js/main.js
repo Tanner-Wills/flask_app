@@ -1,6 +1,5 @@
 // Import all modules
 import { 
-    loadCompanies, 
     renderCompanies, 
     createCompany, 
     deleteCompany, 
@@ -24,8 +23,8 @@ import {
 const API_BASE = 'http://127.0.0.1:5000';
 
 // Global State
-let companies = [];
-let dataEntries = [];
+export let companies = [];
+export let dataEntries = [];
 
 // Utility Functions
 function showMessage(elementId, message, type = 'success') {
@@ -63,40 +62,15 @@ async function apiRequest(endpoint, options = {}) {
     }
 }
 
-// Tab Management
-function showTab(tabName, event = null) {
-    // Remove active class from all tabs
-    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-    
-    // Hide all content sections
-    document.querySelectorAll('.content').forEach(content => content.classList.add('hidden'));
-    
-    // Add active class to clicked tab
-    const targetTab = event ? event.target : document.querySelector(`[onclick*="${tabName}"]`);
-    if (targetTab) {
-        targetTab.classList.add('active');
-    }
-    
-    // Show the selected tab content
-    const tabContent = document.getElementById(tabName + '-tab');
-    if (tabContent) {
-        tabContent.classList.remove('hidden');
-    }
-    
-    // Load data based on selected tab
-    switch (tabName) {
-        case 'companies':
-            loadCompanies();
-            break;
-        case 'data-entries':
-            loadDataEntries();
-            loadCompaniesForSelect();
-            break;
-        case 'statistics':
-            loadCompaniesForStats();
-            break;
-        default:
-            console.warn(`Unknown tab: ${tabName}`);
+// Load companies from API
+async function loadCompanies() {
+    try {
+        const companiesData = await apiRequest('/companies');
+        // Update global companies array
+        companies.length = 0; // Clear existing
+        companies.push(...companiesData); // Add new data
+    } catch (error) {
+        showMessage('message', 'Failed to load companies', 'error');
     }
 }
 
@@ -104,10 +78,20 @@ function showTab(tabName, event = null) {
 document.addEventListener('DOMContentLoaded', () => {
     // Load initial data
     loadCompanies();
-    loadCompaniesForStats();
+
+    if (document.getElementById("companies-page")) {
+        loadCompaniesForSelect();
+        renderCompanies();
+    }
+    else if (document.getElementById("data-entries-page")) {
+        loadDataEntries();
+    }
+    else if (document.getElementById("statistics-page")) {
+        loadCompaniesForStats();
+    } 
     
     // Make functions globally available
-    window.showTab = showTab;
+    window.renderCompanies = renderCompanies;
     window.createCompany = createCompany;
     window.deleteCompany = deleteCompany;
     window.createDataEntry = createDataEntry;
@@ -119,8 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Export utilities for use in other modules
 export { 
     API_BASE, 
-    companies, 
-    dataEntries, 
     showMessage, 
     apiRequest 
 };

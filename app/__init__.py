@@ -28,7 +28,7 @@ def create_app():
     def index():
         """Serve the frontend HTML"""
         # Redirect to companies page or render companies page directly
-        return render_template('pages/companies_tab.html', active_tab='companies')
+        return render_template('pages/companies_page.html', active_page='companies')
 
     # Favicon route to avoid 404 errors
     @app.route('/favicon.ico')

@@ -1,6 +1,6 @@
 // stats.js - Statistics related functions
 
-import { showMessage, apiRequest } from './main.js';
+import { showMessage, apiRequest, companies, dataEntries } from './main.js';
 
 // Load companies for statistics dropdown
 async function loadCompaniesForStats() {

@@ -4,19 +4,21 @@
 {% block title %}Companies | Database Management System{% endblock %}
 
 {% block content %}
-<div id="companies-tab" class="content">
+<div id="companies-page" class="content">
     <div id="message"></div>
     <h2>Companies Management</h2>
-    <div id="message"></div>
+    <div id="companies-message"></div>
     
     <div class="form-group">
-        <label for="company-name">Company Name:</label>
-        <input type="text" id="company-name" placeholder="Enter company name">
+        <label for="company-name">Select Company:</label>
+        <select id="company-selector" onchange="renderCompanies()">
+            <option value="">Select a company</option>
+        </select>
     </div>
     
     <div class="btn-group">
         <button class="btn btn-primary" onclick="createCompany()">Add Company</button>
-        <button class="btn btn-secondary" onclick="loadCompanies()">Refresh</button>
+        <button class="btn btn-secondary" onclick="renderCompanies()">Refresh</button>
     </div>
 
     <div id="companies-list">

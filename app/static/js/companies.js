@@ -1,19 +1,31 @@
 // companies.js - Companies related functions
 
-import { companies, showMessage, apiRequest } from './main.js';
+import {showMessage, apiRequest, companies, dataEntries } from './main.js';
 
-// Load companies from API
-async function loadCompanies() {
+
+
+// Load companies for select dropdowns
+async function loadCompaniesForSelect() {
     try {
-        const companiesData = await apiRequest('/companies');
-        // Update global companies array
-        companies.length = 0; // Clear existing
-        companies.push(...companiesData); // Add new data
-        renderCompanies();
+        const companies = await apiRequest('/companies');
+        const companySelect = document.getElementById('company-selector');
+        // Clear existing options
+        companySelect.innerHTML = '<option value="">Select a company</option>';
+
+        companies.forEach(company => {
+            const option = document.createElement('option');
+            option.value = company.id;
+            option.textContent = company.name;
+            companySelect.appendChild(option);
+        });
+        
+        console.log(`Loaded ${companies.length} companies for companies dropdown`);
     } catch (error) {
-        showMessage('message', 'Failed to load companies', 'error');
+        console.error('Failed to load companies for dropdown:', error);
+        showMessage('companies-message', 'Failed to load companies for dropdown', 'error');
     }
 }
+
 
 // Render companies table
 function renderCompanies() {
@@ -103,29 +115,9 @@ async function deleteCompany(id) {
     }
 }
 
-// Load companies for select dropdowns
-async function loadCompaniesForSelect() {
-    try {
-        const companiesData = await apiRequest('/companies');
-        const entrySelect = document.getElementById('entry-company');
-        const filterSelect = document.getElementById('filter-company');
-        
-        [entrySelect, filterSelect].forEach(select => {
-            if (select) {
-                select.innerHTML = '<option value="">Select a company</option>';
-                companiesData.forEach(company => {
-                    select.innerHTML += `<option value="${company.id}">${company.name}</option>`;
-                });
-            }
-        });
-    } catch (error) {
-        console.error('Failed to load companies for select:', error);
-    }
-}
 
 // Export functions
 export {
-    loadCompanies,
     renderCompanies,
     createCompany,
     deleteCompany,

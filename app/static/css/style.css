@@ -70,7 +70,7 @@ h1 {
     margin-bottom: 10px;
 }
 
-.tabs {
+.pages {
     display: flex;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
@@ -79,7 +79,7 @@ h1 {
     backdrop-filter: blur(10px);
 }
 
-.tab {
+.page {
     flex: 1;
     padding: 15px 20px;
     background: transparent;
@@ -92,13 +92,13 @@ h1 {
     font-weight: 500;
 }
 
-.tab.active {
+.page.active {
     background: rgba(255, 255, 255, 0.2);
     color: white;
     transform: translateY(-2px);
 }
 
-.tab:hover {
+.page:hover {
     background: rgba(255, 255, 255, 0.1);
     color: white;
 }

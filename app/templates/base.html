@@ -13,10 +13,10 @@
             <p class="subtitle">Manage companies and data entries</p>
         </header>
 
-        <nav class="tabs">
-            <a href="{{ url_for('pages.show_companies') }}" class="tab {% if active_tab == 'companies' %}active{% endif %}">Companies</a>
-            <a href="{{ url_for('pages.show_data_entries') }}" class="tab {% if active_tab == 'data_entries' %}active{% endif %}">Data Entries</a>
-            <a href="{{ url_for('pages.show_statistics') }}" class="tab {% if active_tab == 'statistics' %}active{% endif %}">Statistics</a>
+        <nav class="pages">
+            <a href="{{ url_for('pages.show_companies') }}" class="page {% if active_page == 'companies' %}active{% endif %}">Companies</a>
+            <a href="{{ url_for('pages.show_data_entries') }}" class="page {% if active_page == 'data_entries' %}active{% endif %}">Data Entries</a>
+            <a href="{{ url_for('pages.show_statistics') }}" class="page {% if active_page == 'statistics' %}active{% endif %}">Statistics</a>
         </nav>
 
         <main>

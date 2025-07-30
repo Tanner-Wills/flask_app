@@ -3,7 +3,6 @@
 import {showMessage, apiRequest, companies, dataEntries } from './main.js';
 
 
-
 // Load companies for select dropdowns
 async function loadCompaniesForSelect() {
     try {

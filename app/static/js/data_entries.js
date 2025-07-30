@@ -2,6 +2,30 @@
 
 import { dataEntries, showMessage, apiRequest } from './main.js';
 
+
+// Load companies for the filter dropdown in Data Entries tab
+async function loadCompaniesForDataFilters() {
+    try {
+        const companies = await apiRequest('/companies');
+        const filterSelect = document.getElementById('filter-company');
+
+        filterSelect.innerHTML = '<option value="">All Companies</option>';
+
+        companies.forEach(company => {
+            const option = document.createElement('option');
+            option.value = company.id;
+            option.textContent = company.name;
+            filterSelect.appendChild(option);
+        });
+
+        console.log(`Loaded ${companies.length} companies into filter dropdown`);
+    } catch (error) {
+        console.error('Failed to load filter companies:', error);
+        showMessage('data-message', 'Failed to load companies for filtering', 'error');
+    }
+}
+
+
 // Load data entries from API
 async function loadDataEntries() {
     try {
@@ -186,6 +210,7 @@ function clearFilters() {
 
 // Export functions
 export {
+    loadCompaniesForDataFilters,
     loadDataEntries,
     renderDataEntries,
     createDataEntry,

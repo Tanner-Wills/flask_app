@@ -7,6 +7,7 @@ import {
 } from './companies.js';
 
 import { 
+    loadCompaniesForDataFilters,
     loadDataEntries, 
     renderDataEntries, 
     createDataEntry, 
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCompanies();
     }
     else if (document.getElementById("data-entries-page")) {
+        loadCompaniesForDataFilters();
         loadDataEntries();
     }
     else if (document.getElementById("statistics-page")) {
@@ -94,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.renderCompanies = renderCompanies;
     window.createCompany = createCompany;
     window.deleteCompany = deleteCompany;
+    window.loadCompaniesForDataFilters = loadCompaniesForDataFilters;
     window.createDataEntry = createDataEntry;
     window.deleteDataEntry = deleteDataEntry;
     window.loadCompanyStats = loadCompanyStats;

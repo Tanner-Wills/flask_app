@@ -7,11 +7,12 @@ import os
 
 """
 TODO:
-- Add datatables for data viewing
 - Add ability to drag and drop .csv file and upload data to backend
-- Troubleshoot statistics tab for company drop down not working
+- Add overview of all company stats when no company is selected
+- Add ability, (input box pop up) for 'add company' button
 
 """
+
 def create_app():
     app = Flask(__name__)
     CORS(app)  # Enable CORS for API endpoints

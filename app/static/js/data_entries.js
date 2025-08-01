@@ -2,6 +2,14 @@
 
 import { dataEntries, showMessage, apiRequest } from './main.js';
 
+function openEntryModal() {
+    document.getElementById('entry-modal').classList.remove('hidden');
+}
+
+function closeEntryModal() {
+    document.getElementById('entry-modal').classList.add('hidden');
+}
+
 
 // Load companies for the filter dropdown in Data Entries tab
 async function loadCompaniesForDataFilters() {
@@ -208,13 +216,81 @@ function clearFilters() {
     loadDataEntries(); // Reload without filters
 }
 
-// Export functions
-export {
-    loadCompaniesForDataFilters,
-    loadDataEntries,
-    renderDataEntries,
-    createDataEntry,
-    deleteDataEntry,
-    filterDataEntries,
-    clearFilters
-};
+async function uploadCSVFile(file) {
+    const status = document.getElementById('upload-status');
+
+    if (!file || file.type !== 'text/csv') {
+        status.textContent = 'Please upload a valid CSV file.';
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('csv_file', file);
+
+    status.textContent = 'Uploading...';
+
+    fetch('/data-entries/upload-csv', {
+        method: 'POST',
+        body: formData
+    }).then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                status.textContent = `Error: ${data.error}`;
+            } else {
+                status.textContent = `Upload successful: ${data.message}`;
+                loadDataEntries();
+            }
+        }).catch(() => {
+            status.textContent = 'Upload failed. Please try again.';
+        });
+}
+
+
+function addDataEntryListener() {
+    const dropArea = document.getElementById('csv-upload-area');
+    const fileInput = document.getElementById('csv-file-input');
+
+    dropArea.addEventListener('click', () => fileInput.click());
+
+    ['dragenter', 'dragover'].forEach(eventName =>
+        dropArea.addEventListener(eventName, e => {
+            e.preventDefault();
+            dropArea.classList.add('hover');
+        })
+    );
+
+    ['dragleave', 'drop'].forEach(eventName =>
+        dropArea.addEventListener(eventName, e => {
+            e.preventDefault();
+            dropArea.classList.remove('hover');
+        })
+    );
+
+    dropArea.addEventListener('drop', e => {
+        const file = e.dataTransfer.files[0];
+        uploadCSVFile(file);
+    });
+
+    fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        uploadCSVFile(file);
+    });
+}
+
+
+// Event Listeners
+if (document.getElementById("data-entries-page")) {
+    document.addEventListener('DOMContentLoaded', () => {
+        loadCompaniesForDataFilters();
+        loadDataEntries();
+        addDataEntryListener();
+    });
+
+    window.loadDataEntries = loadDataEntries;
+    window.openEntryModal = openEntryModal;
+    window.closeEntryModal = closeEntryModal;
+    window.loadCompaniesForDataFilters = loadCompaniesForDataFilters;
+    window.createDataEntry = createDataEntry;
+    window.deleteDataEntry = deleteDataEntry;
+
+}

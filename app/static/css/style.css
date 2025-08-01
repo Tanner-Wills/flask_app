@@ -326,3 +326,50 @@ tr:hover {
         flex-direction: column;
     }
 }
+
+
+/*  Modal Styles  */
+.drop-area {
+    border: 2px dashed #007bff;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+.drop-area.hover {
+    background-color: #e2e6ea;
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal.hidden {
+    display: none;
+}
+.modal-content {
+    background: #fff;
+    padding: 2rem;
+    width: 600px;
+    border-radius: 10px;
+    position: relative;
+}
+.modal .close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+

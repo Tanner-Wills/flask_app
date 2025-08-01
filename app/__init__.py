@@ -10,7 +10,7 @@ TODO:
 - Add ability to drag and drop .csv file and upload data to backend
 - Add overview of all company stats when no company is selected
 - Add ability, (input box pop up) for 'add company' button
-
+- implement caching 
 """
 
 def create_app():

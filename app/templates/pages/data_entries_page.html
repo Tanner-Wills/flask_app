@@ -1,4 +1,3 @@
-<!-- Data Entries Tab -->
 {% extends "base.html" %}
 
 {% block title %}Data Entries | Database Management System{% endblock %}
@@ -9,44 +8,8 @@
     <h2>Data Entries Management</h2>
     <div id="data-message"></div>
 
-    <!-- Add Data Entry Form -->
-    <div class="form-row">
-        <div class="form-group">
-            <label for="entry-company">Company:</label>
-            <select id="entry-company">
-                <option value="">Select a company</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="entry-device-type">Device Type:</label>
-            <input type="text" id="entry-device-type" placeholder="e.g., sensor, camera">
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group">
-            <label for="entry-uid">UID:</label>
-            <input type="text" id="entry-uid" placeholder="Unique identifier">
-        </div>
-        <div class="form-group">
-            <label for="entry-data-type">Data Type:</label>
-            <input type="text" id="entry-data-type" placeholder="e.g., temperature, video">
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group">
-            <label for="entry-data-set">Data Set:</label>
-            <input type="text" id="entry-data-set" placeholder="e.g., production_data">
-        </div>
-        <div class="form-group">
-            <label for="entry-data-going-to">Data Going To:</label>
-            <input type="text" id="entry-data-going-to" placeholder="e.g., analytics_server">
-        </div>
-    </div>
-
     <div class="btn-group">
-        <button class="btn btn-primary" onclick="createDataEntry()">Add Data Entry</button>
+        <button class="btn btn-primary" onclick="openEntryModal()">Add Data Entry</button>
         <button class="btn btn-secondary" onclick="loadDataEntries()">Refresh</button>
     </div>
 
@@ -72,4 +35,64 @@
         <div class="loading">Loading data entries...</div>
     </div>
 </div>
+
+<!-- Modal -->
+<div id="entry-modal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close" onclick="closeEntryModal()">&times;</span>
+        <h3>Add New Data Entry</h3>
+
+        <!-- Entry Fields -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="entry-company">Company:</label>
+                <select id="entry-company">
+                    <option value="">Select a company</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="entry-device-type">Device Type:</label>
+                <input type="text" id="entry-device-type" placeholder="e.g., sensor, camera">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="entry-uid">UID:</label>
+                <input type="text" id="entry-uid" placeholder="Unique identifier">
+            </div>
+            <div class="form-group">
+                <label for="entry-data-type">Data Type:</label>
+                <input type="text" id="entry-data-type" placeholder="e.g., temperature, video">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="entry-data-set">Data Set:</label>
+                <input type="text" id="entry-data-set" placeholder="e.g., production_data">
+            </div>
+            <div class="form-group">
+                <label for="entry-data-going-to">Data Going To:</label>
+                <input type="text" id="entry-data-going-to" placeholder="e.g., analytics_server">
+            </div>
+        </div>
+
+        <!-- Drag and Drop Upload -->
+        <div id="csv-upload-area" class="drop-area">
+            <p>Drag & drop a CSV file here, or click to select</p>
+            <input type="file" id="csv-file-input" accept=".csv" hidden />
+        </div>
+        <div id="upload-status"></div>
+
+        <div class="btn-group" style="margin-top: 1rem;">
+            <button class="btn btn-success" onclick="createDataEntry()">Submit Entry</button>
+            <button class="btn btn-secondary" onclick="closeEntryModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script type="module" src="/static/js/data_entries.js"></script>
+
+</div>
+
 {% endblock %}

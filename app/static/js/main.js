@@ -1,25 +1,3 @@
-// Import all modules
-import { 
-    renderCompanies, 
-    createCompany, 
-    deleteCompany, 
-    loadCompaniesForSelect 
-} from './companies.js';
-
-import { 
-    loadCompaniesForDataFilters,
-    loadDataEntries, 
-    renderDataEntries, 
-    createDataEntry, 
-    deleteDataEntry 
-} from './data_entries.js';
-
-import { 
-    loadCompaniesForStats, 
-    loadCompanyStats, 
-    renderStats 
-} from './stats.js';
-
 // Global Configuration
 const API_BASE = 'http://127.0.0.1:5000';
 
@@ -79,29 +57,8 @@ async function loadCompanies() {
 document.addEventListener('DOMContentLoaded', () => {
     // Load initial data
     loadCompanies();
-
-    if (document.getElementById("companies-page")) {
-        loadCompaniesForSelect();
-        renderCompanies();
-    }
-    else if (document.getElementById("data-entries-page")) {
-        loadCompaniesForDataFilters();
-        loadDataEntries();
-    }
-    else if (document.getElementById("statistics-page")) {
-        loadCompaniesForStats();
-    } 
-    
-    // Make functions globally available
-    window.renderCompanies = renderCompanies;
-    window.createCompany = createCompany;
-    window.deleteCompany = deleteCompany;
-    window.loadCompaniesForDataFilters = loadCompaniesForDataFilters;
-    window.createDataEntry = createDataEntry;
-    window.deleteDataEntry = deleteDataEntry;
-    window.loadCompanyStats = loadCompanyStats;
-    window.loadDataEntries = loadDataEntries;
 });
+
 
 // Export utilities for use in other modules
 export { 

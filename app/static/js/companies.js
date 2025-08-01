@@ -1,5 +1,4 @@
 // companies.js - Companies related functions
-
 import {showMessage, apiRequest, companies, dataEntries } from './main.js';
 
 
@@ -115,10 +114,15 @@ async function deleteCompany(id) {
 }
 
 
-// Export functions
-export {
-    renderCompanies,
-    createCompany,
-    deleteCompany,
-    loadCompaniesForSelect
-};
+// Event Listeners
+if (document.getElementById("companies-page")) {
+    document.addEventListener('DOMContentLoaded', () => {
+        loadCompaniesForSelect();
+        renderCompanies();
+    });
+
+    window.renderCompanies = renderCompanies;
+    window.createCompany = createCompany;
+    window.deleteCompany = deleteCompany;
+
+}

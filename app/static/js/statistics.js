@@ -1,5 +1,4 @@
-// stats.js - Statistics related functions
-
+// statistics.js - Statistics related functions
 import { showMessage, apiRequest, companies, dataEntries } from './main.js';
 
 // Load companies for statistics dropdown
@@ -220,11 +219,12 @@ function generateStatsCSV(stats) {
     return csv;
 }
 
-// Export functions
-export {
-    loadCompaniesForStats,
-    loadCompanyStats,
-    renderStats,
-    generateStatsSummary,
-    exportStatsData
-};
+
+// Event Listeners
+if (document.getElementById("statistics-page")) {
+    document.addEventListener('DOMContentLoaded', () => {
+        loadCompaniesForStats();
+    });
+
+    window.loadCompanyStats = loadCompanyStats;
+}
